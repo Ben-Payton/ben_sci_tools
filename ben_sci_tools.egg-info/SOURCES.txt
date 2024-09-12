@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 setup.py
 ben_sci_tools/__init__.py
+ben_sci_tools/input_file_maker.py
 ben_sci_tools/process_data.py
 ben_sci_tools.egg-info/PKG-INFO
 ben_sci_tools.egg-info/SOURCES.txt
