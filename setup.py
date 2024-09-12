@@ -2,12 +2,12 @@ import setuptools
 
 import pathlib
 
-PROJECT_NAME = "place project name here"
-VERSION = "0.0.0"
-SHORT_DESCRIPTION = "This is a short description of what the app does."
-SOURCE_CODE_LINK= ""
-DOCUMENTATION_LINK = "" 
-REQUIRED_DEPENDANCIES = []
+PROJECT_NAME = "ben_sci_tools"
+VERSION = "0.0.1"
+SHORT_DESCRIPTION = "useful python tools that I use to streamline my work."
+SOURCE_CODE_LINK= "https://github.com/Ben-Payton/ben_sci_tools"
+DOCUMENTATION_LINK = "https://github.com/Ben-Payton/ben_sci_tools/blob/main/README.md" 
+REQUIRED_DEPENDANCIES = ["numpy", "pandas", "matplotlib"]
 
 
 setuptools.setup(

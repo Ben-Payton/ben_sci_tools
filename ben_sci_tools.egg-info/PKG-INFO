@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: ben_sci_tools
+Version: 0.0.1
+Summary: useful python tools that I use to streamline my work.
+Author: Ben Payton
+Project-URL: Documentation, https://github.com/Ben-Payton/ben_sci_tools/blob/main/README.md
+Project-URL: Source, https://github.com/Ben-Payton/ben_sci_tools
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+
+# Template Readme
+
+This is a template to get started on a python project
