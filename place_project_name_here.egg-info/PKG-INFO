@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: place-project-name-here
+Version: 0.0.0
+Summary: This is a short description of what the app does.
+Author: Ben Payton
+Project-URL: Documentation, 
+Project-URL: Source, 
+Description-Content-Type: text/markdown
+
+# Template Readme
+
+This is a template to get started on a python project

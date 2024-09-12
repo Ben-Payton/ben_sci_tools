@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+setup.py
+place_project_name_here.egg-info/PKG-INFO
+place_project_name_here.egg-info/SOURCES.txt
+place_project_name_here.egg-info/dependency_links.txt
+place_project_name_here.egg-info/top_level.txt
+src/__init__.py
+src/project_name.py
+tests/tests.py
