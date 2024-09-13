@@ -147,4 +147,4 @@ class g16_input:
 
                                  
 
-        return cls(input_line,file_name,charge,spin_mult,geometry,nproc = nproc,mem = mem)
+        return cls(input_line,geometry,file_name,charge,spin_mult,nproc = nproc,mem = mem)
