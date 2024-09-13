@@ -21,6 +21,12 @@ class xyz_atom:
         """
         return f"{self.atom_type} {self.x_val} {self.y_val} {self.z_val}"
     
+    @classmethod
+    def from_string(cls,line:str):
+        line = line.strip(" \n\t")
+        line = line.split()
+        return cls(line[1],line[2],line[3],line[0])
+    
 class xyz_molecule:
 
     def __init__(self,atom_list:list[xyz_atom]):
@@ -96,3 +102,49 @@ class g16_input:
         with open(self.file_name,"w") as file:
             file.write(out_string)
 
+    @classmethod
+    def from_file(cls,file_name):
+        collect_input = False
+        input_line = ""
+        nproc = 36
+        mem = 1
+        charge_collected = False
+        charge = 0
+        spin_mult = 1
+        Title_Card = False
+        blank_counter = 0 
+        geometry = xyz_molecule([])
+
+        with open(file_name,"r") as file:
+            for line in file:
+                true_line = line.strip(" \n")
+
+                if "%mem" in true_line:
+                    mem = int(true_line.split("=")[1][:-2])
+
+                if "%nproc" in true_line:
+                    nproc = int(true_line.split("=")[1])
+
+                if collect_input == True and blank_counter == 0:
+                    input_line = input_line + " " + line.strip(" \n")
+
+                if "#p" in true_line:
+                    collect_input = True
+                    input_line = input_line + line.strip("\n")
+
+                if blank_counter == 2 and charge_collected and true_line != "":
+                    geometry.add_atom(xyz_atom.from_string(true_line))
+
+                if blank_counter == 2 and charge_collected == False:
+                    true_line = line.strip(" \n\t")
+                    charge_mult = true_line.split()
+                    charge = charge_mult[0]
+                    spin_mult = charge_mult[1]
+                    charge_collected = True
+                
+                if true_line.strip("\t") == "":
+                    blank_counter = blank_counter + 1
+
+                                 
+
+        return cls(input_line,file_name,charge,spin_mult,geometry,nproc = nproc,mem = mem)
