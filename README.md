@@ -200,6 +200,96 @@ Child of the g16_scraper. Meant to serve as a file scraper for Gaussian16 freque
                 zero_point_energy                              : float
                 vibrational_thermal_contributions 
 
-
-
 ## input_file_maker
+
+### Functions
+
+### Classes
+
+`xyz_atom`
+an atom with x, y, and z coordinates
+
+    Attributes
+    ----------
+    x_val : float
+        x postion
+    y_val : float
+        y postion
+    z_val : float
+        z postion
+    atom_type : str
+        the atomic coded for an atom i.e. C for carbon
+
+    Methods
+    -------
+
+    `as_string()`
+    returns a formatted string of atom type and xyz data
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        A formatted string of atom type and xyz data
+
+`xyz_molecule`
+a list of xyz_atoms
+
+    Attributes
+    ----------
+        atom_list : list[xyz_atom]
+
+    Methods
+    -------
+    
+    `as_string()`
+    returns a formatted string of atom type and xyz data
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        A formatted string of atom type and xyz data for each atom in the molecule on a new line
+        """
+    
+    `add_atom()`
+    adds an atom to the atom list
+        
+        Parameters
+        ----------
+        new_atom (xyz_atom)
+
+        Returns
+        -------
+        None
+
+`g16_input`
+A formatting object for g16_inputs
+
+    Attributes
+    ----------
+
+    checkpoint : str
+        The name of the checkpoint file
+    file_name : str
+        The name of the associated input file
+    geometry : xyz_molecule
+        The systems geometry information 
+    mem : int
+        The memory usage of the calculation in GB. default is 1
+    nproc : int
+        the number of processors used in the cacluation the default is 36
+    input_line : str
+        The input line of the input file
+    extra : str
+        Any information that may come after the geometry section
+    title_card : str
+        The Title card of the input file
+    charge : charge
+        The charge of the system
+    spin_mult : int
+        The spin multiplicity of the system
