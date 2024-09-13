@@ -92,7 +92,7 @@ class g16_input:
 
 {self.title_card}
 
-{self.charge} {self.mult}
+{self.charge} {self.spin_mult}
 {self.geometry.as_string()}
 
 {self.extra}
