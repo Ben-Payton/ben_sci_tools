@@ -8,4 +8,4 @@ from .process_data import out_file_scraper
 from .process_data import g16_scraper
 from .process_data import g16_optfreq
 
-import colors
+from . import colors
