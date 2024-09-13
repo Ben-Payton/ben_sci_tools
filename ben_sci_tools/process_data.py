@@ -1,6 +1,5 @@
 import glob
 
-
 def statp(file_pattern:str) -> str:
     '''takes a file patern and returns the number of stationary points in each file that fits that pattern.
 
