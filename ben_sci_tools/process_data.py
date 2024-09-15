@@ -422,4 +422,41 @@ class g16_optfreq(g16_scraper):
             
         self.current_index = j
 
+def rxn_coord_list_format(reaction_list: list[float]) -> list[float]:
+    """ formats a list of values so that it makes a nice reaction coordinate plot
+
+    Parameters
+    ----------
+        reaction_list (list[float]):  a list of energies or enthalpies to be plotted as 
+        a reaction coordinate
+
+    Returns
+    -------
+        A list of floating point numbers better formatted to plot a reaction coordinate diagram
+    
+    """
+    new_list = []
+    for item in reaction_list:
+        new_list.append(item)
+        new_list.append(item)
+    return new_list
+
+def set_new_zero(values_list: list[float], added_value: float):
+    """ adds a value to each item in the list so the zero can be adjusted.
+
+    Parameters
+    ----------
+        values_list (list[float]): a set of values to be adjusted
+
+        added_value (float): The number that will be added to each item in the list
+
+    Returns
+    -------
+        A list similar to the first, but each item has had added_value added to it
+    """
+    new_list = []
+    for item in values_list:
+        new_list.append(item + added_value)
+    return new_list
+
 
