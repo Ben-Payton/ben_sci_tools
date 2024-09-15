@@ -441,7 +441,7 @@ def rxn_coord_list_format(reaction_list: list[float]) -> list[float]:
         new_list.append(item)
     return new_list
 
-def set_new_zero(values_list: list[float], added_value: float):
+def set_new_zero(values_list: list[float], added_value: float) -> list[float]:
     """ adds a value to each item in the list so the zero can be adjusted.
 
     Parameters
