@@ -549,14 +549,12 @@ def read_in_stdout(file_name:str):
                 # gets us to relevent values
                 line =  file.readline().strip("\n \t").split()
                 line.append("Cycle")
-                print(line)
                 df = pd.DataFrame(columns=line)
                 line =  file.readline().strip("\n \t")
 
                 while "Loop time of " not in line:
                     #adds the line of values to the df
                     line_list =line.split()
-                    print(line_list)
                     line_list.append(cycle_num)
                     df = pd.concat([pd.DataFrame([line_list],columns = df.columns),df],ignore_index=True)
                     line =  file.readline().strip("\n \t")
