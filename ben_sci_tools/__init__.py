@@ -11,5 +11,7 @@ from .process_data import set_new_zero
 from .process_data import rxn_coord_list_format
 from .process_data import read_species_out
 from .process_data import read_in_stdout
+from .orca_scrapers import orca_outfile
+from .orca_scrapers import orca_optfreq
 
 from . import colors
