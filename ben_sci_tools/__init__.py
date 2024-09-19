@@ -9,5 +9,6 @@ from .process_data import g16_scraper
 from .process_data import g16_optfreq
 from .process_data import set_new_zero
 from .process_data import rxn_coord_list_format
+from .process_data import read_species_out
 
 from . import colors
