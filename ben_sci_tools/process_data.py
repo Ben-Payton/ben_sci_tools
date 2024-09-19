@@ -518,3 +518,67 @@ def read_species_out(file_name:str):
     return df
 
 
+def read_in_stdout(file_name:str):
+    ''' Reads a Lammps formatted standardout file and gives a pandas dataframe
+    
+    Parameters
+    ----------
+    file_name (str): The Path to the species out file
+
+
+    Returns
+    -------
+    a pandas dataframe holding all of the thermo data
+    
+    '''
+
+    df = pd.DataFrame(columns=["Step","Temp","PotEng","Press","Volume","Density","cycle"])
+    cycle_num = 0
+
+    # Opens the file and treats it as an iterable object reading each line
+    with open(file_name,"r") as file:
+        line =  file.readline().strip("\n \t")
+
+        #  loops through until the end of the file is found
+        while line != "job has finished":
+
+            # We have entered a section with thermo data
+            if "Per MPI rank memory allocation (min/avg/max)" in line and cycle_num == 0:
+                cycle_num = cycle_num + 1
+
+                # gets us to relevent values
+                line =  file.readline().strip("\n \t").split()
+                line.append("Cycle")
+                print(line)
+                df = pd.DataFrame(columns=line)
+                line =  file.readline().strip("\n \t")
+
+                while "Loop time of " not in line:
+                    #adds the line of values to the df
+                    line_list =line.split()
+                    print(line_list)
+                    line_list.append(cycle_num)
+                    df = pd.concat([pd.DataFrame([line_list],columns = df.columns),df],ignore_index=True)
+                    line =  file.readline().strip("\n \t")
+
+            if "Per MPI rank memory allocation (min/avg/max)" in line:
+                cycle_num = cycle_num + 1
+
+                # gets us to relevent values
+                line =  file.readline().strip("\n \t")
+                line =  file.readline().strip("\n \t")
+
+                # Loop until we get to the end of thermal section
+                while "Loop time of " not in line:
+                    #adds the line of values to the df
+                    line_list =line.split()
+                    line_list.append(cycle_num)
+                    df = pd.concat([pd.DataFrame([line_list],columns = df.columns),df],ignore_index=True)
+                    line =  file.readline().strip("\n \t")
+
+            line =  file.readline().strip("\n \t")
+    df["Step"] = pd.to_numeric(df["Step"])
+    df.sort_values("Step",inplace=True)
+
+    return df
+
