@@ -458,7 +458,7 @@ def set_new_zero(values_list: list[float], added_value: float) -> list[float]:
     """
     new_list = []
     for item in values_list:
-        new_list.append(item + added_value)
+        new_list.append(item - added_value)
     return new_list
 
 
