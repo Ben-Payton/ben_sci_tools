@@ -19,6 +19,17 @@ takes a file patern and returns the number of stationary points in each file tha
     Returns
     -------
     a string that gives nomber of occurences and line numbers of stationary points
+    
+`rxn_coord_list_format`
+rxn_coord_list_format takes a list of energies or enthalpies and returns a new list where each value is duplicated. This formatted list can be used to create a step-like reaction coordinate plot.
+
+    Parameters
+    ----------
+    reaction_list (list[float]) :  a list of floating point numbers representing energies or enthalpies
+
+    Returns
+    -------
+    a list of floating point numbers with each value duplicated for better plotting of reaction coordinates
 
 ### Classes
 
