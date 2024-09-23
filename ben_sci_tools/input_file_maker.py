@@ -224,13 +224,13 @@ class orca_input:
     atom_list (list[atom]): a lits of all of the atoms associated with the orca input line
 '''
 
-    def __init__(self,file_name ="",input_line = "!",charge = 0,multiplicity = 1, atom_list = []) -> None:
+    def __init__(geometry : xyz_molecule,self,file_name ="",input_line = "!", charge = 0,multiplicity = 1) -> None:
         
         self.file_name = file_name
         self.input_line = input_line
         self.charge = charge
         self.multiplicity = multiplicity
-        self.atom_list = xyz_molecule(atom_list)
+        self.geometry = geometry
         pass
     
     def get_atom_list(current_index : int, file_list) -> int:
@@ -251,15 +251,15 @@ class orca_input:
         '''
         line = file_list[current_index]
         # A list for the atoms to be appended to.
-        atom_list = xyz_molecule([])
+        new_geometry = xyz_molecule([])
         # The Last line of the atom list is an astrsk so we continue this loop until we find that
         while "*" not in line:
             # Appending an atom object to the end lsit based on the current line.
-            atom_list.add_atom(xyz_atom.from_string(line))
+            new_geometry.add_atom(xyz_atom.from_string(line))
             # Itterating to the next line in the list
             current_index = current_index+1
             line = file_list[current_index]
-        return  atom_list , current_index
+        return  new_geometry , current_index
 
     @classmethod
     def from_file(cls,file_name:str):
@@ -303,7 +303,7 @@ class orca_input:
                 # recognizes the input lines by a  line starting with '!'
                 future_input_line = future_input_line + line.strip("! \n")
                 current_index = current_index + 1
-        return cls(file_name=future_file_name , input_line=future_input_line , charge=future_charge , multiplicity=future_multiplicity , atom_list=future_atom_list )
+        return cls(future_atom_list,file_name=future_file_name , input_line=future_input_line , charge=future_charge , multiplicity=future_multiplicity )
     
     def make_file(self,comment = "") -> None:
         ''' writes the input file
