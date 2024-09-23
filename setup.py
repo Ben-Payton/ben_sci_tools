@@ -3,11 +3,11 @@ import setuptools
 import pathlib
 
 PROJECT_NAME = "ben_sci_tools"
-VERSION = "0.3.3"
+VERSION = "0.3.5"
 SHORT_DESCRIPTION = "useful python tools that I use to streamline my work."
 SOURCE_CODE_LINK= "https://github.com/Ben-Payton/ben_sci_tools"
 DOCUMENTATION_LINK = "https://github.com/Ben-Payton/ben_sci_tools/blob/main/README.md" 
-REQUIRED_DEPENDANCIES = ["numpy", "pandas", "matplotlib","re"]
+REQUIRED_DEPENDANCIES = ["numpy", "pandas", "matplotlib"]
 
 
 setuptools.setup(
