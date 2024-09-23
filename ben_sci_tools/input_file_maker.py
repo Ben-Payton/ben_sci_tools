@@ -1,3 +1,5 @@
+import numpy as np
+
 class xyz_atom:
     """ an atom with x, y, and z coordinates
     """
@@ -21,12 +23,52 @@ class xyz_atom:
         """
         return f"{self.atom_type} {self.x_val} {self.y_val} {self.z_val}"
     
+    def as_array(self) -> np.ndarray:
+        """returns a numpy array atom type and xyz data
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        Returns a numpy array for better interadction with cclib
+        """
+        return np.array([[self.atom_type],
+                  [self.x_val,
+                   self.y_val,
+                   self.z_val]])
+    
+    def set_xyz(self,xyz_array:np.ndarray[np.float64]):
+        """changes xyz coordinates from an array
+
+        Parameters
+        ----------
+        xyz_array (np.array[float]): an array of xyz coordinates
+
+        Returns
+        -------
+        Returns a numpy array for better interadction with cclib
+        """
+        self.x_val = xyz_array[0]
+        self.y_val = xyz_array[1]
+        self.z_val = xyz_array[2]
+    
     @classmethod
     def from_string(cls,line:str):
         line = line.strip(" \n\t")
         line = line.split()
         return cls(line[1],line[2],line[3],line[0])
     
+    @classmethod
+    def from_xyz_array(cls,atom_type:str,xyz:np.ndarray[np.float64]):
+        x = xyz[0]
+        y = xyz[1]
+        z = xyz[2]
+        return cls(x,y,z,atom_type)
+
+
+
 class xyz_molecule:
 
     def __init__(self,atom_list:list[xyz_atom]):
@@ -49,6 +91,21 @@ class xyz_molecule:
             final_string = final_string + atom.as_string() + "\n"
 
         return final_string[:-1]
+    
+    def set_xyz(self,xyz_array):
+        """sets the xyz coordinates of the molecule to the xyz coordinates of the molecule array
+
+        Parameters
+        ----------
+        xyz_array a 2D Array where each row is a set of xyz coordinate set for an atom
+
+        Returns
+        -------
+        None
+        """
+        for index, coords in enumerate(xyz_array):
+            self.atom_list[index].set_xyz(coords)
+
     
     def add_atom(self,new_atom:xyz_atom):
         """adds an atom to the atom list
