@@ -293,7 +293,7 @@ class orca_input:
                 current_index = current_index + 1
             if "xyz" in line:
                 # Recognizes the charge, mulitplicity, and xyz atom coordinate section
-                current_index = current_index - 1
+                current_index = current_index + 1
                 future_charge = line.split()[2]
                 future_multiplicity = line.split()[3]
                 future_atom_list , current_index = cls.get_atom_list(current_index,file_list)
