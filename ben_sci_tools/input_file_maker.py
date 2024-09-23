@@ -255,7 +255,7 @@ class orca_input:
         # The Last line of the atom list is an astrsk so we continue this loop until we find that
         while "*" not in line:
             # Appending an atom object to the end lsit based on the current line.
-            atom_list.add_atom(line)
+            atom_list.add_atom(xyz_atom.from_string(line))
             # Itterating to the next line in the list
             current_index = current_index+1
             line = file_list[current_index]
