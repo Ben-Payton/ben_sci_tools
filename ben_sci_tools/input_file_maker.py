@@ -322,7 +322,7 @@ class orca_input:
         '''
 
         # Turns the atom list in to a string.
-        atom_list_string = self.atom_list.as_string()
+        atom_list_string = self.geometry.as_string()
         
         file_string = f'''#{comment}
 {self.input_line}
