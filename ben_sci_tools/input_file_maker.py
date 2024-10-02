@@ -293,16 +293,15 @@ class orca_input:
                 continue
             if "xyz" in line:
                 # Recognizes the charge, mulitplicity, and xyz atom coordinate section
-                current_index = current_index + 1
+                current_index = index + 1
                 future_charge = line.split()[2]
                 future_multiplicity = line.split()[3]
                 future_atom_list , current_index = cls.get_atom_list(current_index,file_list)
-                current_index = current_index + 1
                 charge_mult_hit = True
             if line[0] == "!":
                 # recognizes the input lines by a  line starting with '!'
                 future_input_line = future_input_line + line.strip("! \n")
-                current_index = current_index + 1
+            current_index = current_index + 1
         return cls(future_atom_list,file_name=future_file_name , input_line=future_input_line , charge=future_charge , multiplicity=future_multiplicity )
     
     def make_file(self,comment = "") -> None:
