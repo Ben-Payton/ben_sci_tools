@@ -224,7 +224,7 @@ class orca_input:
     atom_list (list[atom]): a lits of all of the atoms associated with the orca input line
 '''
 
-    def __init__(geometry : xyz_molecule,self,file_name ="",input_line = "!", charge = 0,multiplicity = 1) -> None:
+    def __init__(self, geometry : xyz_molecule,file_name ="",input_line = "!", charge = 0,multiplicity = 1) -> None:
         
         self.file_name = file_name
         self.input_line = input_line
