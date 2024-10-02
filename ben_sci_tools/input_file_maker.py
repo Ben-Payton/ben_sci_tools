@@ -254,7 +254,7 @@ class orca_input:
         new_geometry = xyz_molecule([])
         # The Last line of the atom list is an astrsk so we continue this loop until we find that
         while "*" not in line:
-            # Appending an atom object to the end lsit based on the current line.
+            # Appending an atom object to the end list based on the current line.
             new_geometry.add_atom(xyz_atom.from_string(line))
             # Itterating to the next line in the list
             current_index = current_index+1
@@ -289,8 +289,8 @@ class orca_input:
 
         current_index = 0
         for index, line in enumerate(file_list):
-            if index <= current_index:
-                current_index = current_index + 1
+            if index < current_index:
+                continue
             if "xyz" in line:
                 # Recognizes the charge, mulitplicity, and xyz atom coordinate section
                 current_index = current_index + 1
