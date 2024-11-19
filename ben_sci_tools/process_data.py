@@ -29,7 +29,7 @@ def statp(file_pattern:str) -> str:
                 count = count + 1
                 indexes.append(index)
         # Add results to results string
-        results_string = results_string + f"{name+":":<35}{count}\n{indexes}\n"
+        results_string = results_string + f"{name+':':<35}{count}\n{indexes}\n"
     return results_string
 
 
