@@ -333,7 +333,7 @@ class orca_input:
 end
 
 * xyz {self.charge} {self.multiplicity}
-{atom_list_string.strip("\n")}
+{atom_list_string}
 *
 
 
