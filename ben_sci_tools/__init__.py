@@ -15,4 +15,7 @@ from .process_data import read_in_stdout
 from .orca_scrapers import orca_outfile
 from .orca_scrapers import orca_optfreq
 
+
+from kinetics import first_order
+
 from . import colors
