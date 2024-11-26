@@ -16,6 +16,6 @@ from .orca_scrapers import orca_outfile
 from .orca_scrapers import orca_optfreq
 
 
-from kinetics import first_order
+from .kinetics import first_order
 
 from . import colors
