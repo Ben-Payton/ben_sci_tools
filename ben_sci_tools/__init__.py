@@ -15,6 +15,9 @@ from .process_data import read_in_stdout
 from .orca_scrapers import orca_outfile
 from .orca_scrapers import orca_optfreq
 
+from .elements import element
+from .elements import periodic_table
+
 
 from .kinetics import first_order
 
