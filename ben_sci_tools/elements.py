@@ -6,7 +6,7 @@ class element:
         
         self.atomic_number = atomic_number
         self.symbol = symbol
-        self.name = name.lower
+        self.name = name.lower().strip()
         self.atomic_mass = atomic_mass
         pass
 
@@ -144,8 +144,7 @@ class periodic_table:
         return None
     
     def element_by_name(self,name:str):
-        comp = name.lower()
-        comp = name.strip()
+        comp = name.lower().strip()
         for e in self.elements:
             if e.name == comp:
                 return e
