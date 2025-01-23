@@ -18,6 +18,9 @@ from .orca_scrapers import orca_optfreq
 from .elements import element
 from .elements import periodic_table
 
+from .benterpolation import sinterpolate
+from .benterpolation import multi_sinterpolate 
+
 
 from .kinetics import first_order
 
