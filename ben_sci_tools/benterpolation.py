@@ -36,6 +36,8 @@ def multi_sinterpolate(x:np.array,y:np.array,num_points:int=10):
     x : an array of x values for a set of points
 
     y : an array of y values for a set of points
+
+    num_points int : The number of points between each inital set of points
     
     Returns
     -------
