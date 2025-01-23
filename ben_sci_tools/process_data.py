@@ -580,3 +580,43 @@ def read_in_stdout(file_name:str):
 
     return df
 
+
+def get_bond_scan_energies(file_name:str,bond_label:str):
+    """ gets the enegries of a scan as a bond length is scanned
+    
+    Parameters
+    ----------
+    
+    file_name (str): the name of the scan file.
+
+    bond_label (str): label of the bond in gaussian file i.e. R3
+
+    Returns
+    -------
+    
+    (enregies, rc_coords) : lists of the energies (hartrees) and bond lengths (angstroms) in order
+    """
+    with open(file_name,"r") as file_file:
+        file = file_file.readlines()
+    position = 0
+    energies = []
+    rc_coorc = []
+    for index, value in enumerate(file):
+        if "Stationary point" in value:
+            position = position +1
+        if "SCF Done:" in value:
+            if len(energies) == position:
+                temp = value.split()
+                temp = float(temp[4])
+                energies.append(temp)
+            else:
+                temp = value.split()
+                temp = float(temp[4])
+                energies[position] = temp
+
+        if  "! "+bond_label in value:
+            temp = value.split()
+            temp = float(temp[3])
+            rc_coorc.append(temp)
+
+    return energies ,rc_coorc[1:]
