@@ -369,28 +369,28 @@ class g16_optfreq(g16_scraper):
         while end_string not in line:
 
             if "Zero-point correction=" in line:
-                self.zero_point_correction = float(line.split()[2])
+                self.zero_point_correction = float(line.split("=")[-1].split()[0])
             
             if "Thermal correction to Energy=" in line:
-                self.thermal_correction_to_energy = float(line.split()[4])
+                self.thermal_correction_to_energy = float(line.split("=")[-1])
 
             if "Thermal correction to Enthalpy=" in line:
-                self.thermal_correction_to_enthalpy = float(line.split()[4])
+                self.thermal_correction_to_enthalpy = float(line.split("=")[-1])
 
             if "Thermal correction to Gibbs Free Energy=" in line:
-                self.thermal_correction_to_gibbs_free_energy = float(line.split()[6])
+                self.thermal_correction_to_gibbs_free_energy = float(line.split("=")[-1])
 
             if "Sum of electronic and zero-point Energies=" in line:
-                self.sum_of_electronic_and_zero_point_energies = float(line.split()[6])
+                self.sum_of_electronic_and_zero_point_energies = float(line.split("=")[-1])
 
             if "Sum of electronic and thermal Energies=" in line:
-                self.sum_of_electronic_and_thermal_energies = float(line.split()[6])
+                self.sum_of_electronic_and_thermal_energies = float(line.split("=")[-1])
 
             if "Sum of electronic and thermal Enthalpies=" in line:
-                self.sum_of_electronic_and_thermal_enthalpies = float(line.split()[6])
+                self.sum_of_electronic_and_thermal_enthalpies = float(line.split("=")[-1])
 
             if "Sum of electronic and thermal Free Energies=" in line:
-                self.sum_of_electronic_and_thermal_free_energies = float(line.split()[7])
+                self.sum_of_electronic_and_thermal_free_energies = float(line.split("=")[-1])
             
             if line == "E (Thermal)             CV                S":
                 line = self.file_list[j := j + 2].strip(" \t\n")
