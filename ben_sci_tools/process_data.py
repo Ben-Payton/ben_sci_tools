@@ -369,28 +369,28 @@ class g16_optfreq(g16_scraper):
         while end_string not in line:
 
             if "Zero-point correction=" in line:
-                self.zero_point_correction = float(line.split()[2])
+                self.zero_point_correction = float(line.split("=")[-1].split()[0])
             
             if "Thermal correction to Energy=" in line:
-                self.thermal_correction_to_energy = float(line.split()[4])
+                self.thermal_correction_to_energy = float(line.split("=")[-1])
 
             if "Thermal correction to Enthalpy=" in line:
-                self.thermal_correction_to_enthalpy = float(line.split()[4])
+                self.thermal_correction_to_enthalpy = float(line.split("=")[-1])
 
             if "Thermal correction to Gibbs Free Energy=" in line:
-                self.thermal_correction_to_gibbs_free_energy = float(line.split()[6])
+                self.thermal_correction_to_gibbs_free_energy = float(line.split("=")[-1])
 
             if "Sum of electronic and zero-point Energies=" in line:
-                self.sum_of_electronic_and_zero_point_energies = float(line.split()[6])
+                self.sum_of_electronic_and_zero_point_energies = float(line.split("=")[-1])
 
             if "Sum of electronic and thermal Energies=" in line:
-                self.sum_of_electronic_and_thermal_energies = float(line.split()[6])
+                self.sum_of_electronic_and_thermal_energies = float(line.split("=")[-1])
 
             if "Sum of electronic and thermal Enthalpies=" in line:
-                self.sum_of_electronic_and_thermal_enthalpies = float(line.split()[6])
+                self.sum_of_electronic_and_thermal_enthalpies = float(line.split("=")[-1])
 
             if "Sum of electronic and thermal Free Energies=" in line:
-                self.sum_of_electronic_and_thermal_free_energies = float(line.split()[7])
+                self.sum_of_electronic_and_thermal_free_energies = float(line.split("=")[-1])
             
             if line == "E (Thermal)             CV                S":
                 line = self.file_list[j := j + 2].strip(" \t\n")
@@ -557,3 +557,43 @@ def read_in_stdout(file_name:str):
 
     return final_data
 
+
+def get_bond_scan_energies(file_name:str,bond_label:str):
+    """ gets the enegries of a scan as a bond length is scanned
+    
+    Parameters
+    ----------
+    
+    file_name (str): the name of the scan file.
+
+    bond_label (str): label of the bond in gaussian file i.e. R3
+
+    Returns
+    -------
+    
+    (enregies, rc_coords) : lists of the energies (hartrees) and bond lengths (angstroms) in order
+    """
+    with open(file_name,"r") as file_file:
+        file = file_file.readlines()
+    position = 0
+    energies = []
+    rc_coorc = []
+    for index, value in enumerate(file):
+        if "Stationary point" in value:
+            position = position +1
+        if "SCF Done:" in value:
+            if len(energies) == position:
+                temp = value.split()
+                temp = float(temp[4])
+                energies.append(temp)
+            else:
+                temp = value.split()
+                temp = float(temp[4])
+                energies[position] = temp
+
+        if  "! "+bond_label in value:
+            temp = value.split()
+            temp = float(temp[3])
+            rc_coorc.append(temp)
+
+    return energies ,rc_coorc[1:]
