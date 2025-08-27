@@ -528,55 +528,32 @@ def read_in_stdout(file_name:str):
 
     Returns
     -------
-    a pandas dataframe holding all of the thermo data
+    a list of pandas dataframes holding all of the thermo data
     
     '''
-
-    df = pd.DataFrame(columns=["Step","Temp","PotEng","Press","Volume","Density","cycle"])
-    cycle_num = 0
-
-    # Opens the file and treats it as an iterable object reading each line
+    final_data = []
+    collecting_data = False
     with open(file_name,"r") as file:
-        line =  file.readline().strip("\n \t")
+        lines = [i.strip() for i in file.readlines()]
 
-        #  loops through until the end of the file is found
-        while line != "job has finished":
+    for line in lines:
+        if "Loop time of" in line:
+            collecting_data = False
+            final_data.append(pd.DataFrame(current_data))
 
-            # We have entered a section with thermo data
-            if "Per MPI rank memory allocation (min/avg/max)" in line and cycle_num == 0:
-                cycle_num = cycle_num + 1
+        if collecting_data and line.split()[0] == "Step":
+            conserved_keys = line.split().copy()
+            for i in conserved_keys:
+                current_data[i] = []
 
-                # gets us to relevent values
-                line =  file.readline().strip("\n \t").split()
-                line.append("Cycle")
-                df = pd.DataFrame(columns=line)
-                line =  file.readline().strip("\n \t")
+        if collecting_data and line.split()[0] != "Step":
+            vals = [float(i) for i in line.split()]
+            for key, value in zip(conserved_keys,vals):
+                current_data[key].append(value)
 
-                while "Loop time of " not in line:
-                    #adds the line of values to the df
-                    line_list =line.split()
-                    line_list.append(cycle_num)
-                    df = pd.concat([pd.DataFrame([line_list],columns = df.columns),df],ignore_index=True)
-                    line =  file.readline().strip("\n \t")
+        if "Per MPI rank" in line:
+            collecting_data = True
+            current_data = {}
 
-            if "Per MPI rank memory allocation (min/avg/max)" in line:
-                cycle_num = cycle_num + 1
-
-                # gets us to relevent values
-                line =  file.readline().strip("\n \t")
-                line =  file.readline().strip("\n \t")
-
-                # Loop until we get to the end of thermal section
-                while "Loop time of " not in line:
-                    #adds the line of values to the df
-                    line_list =line.split()
-                    line_list.append(cycle_num)
-                    df = pd.concat([pd.DataFrame([line_list],columns = df.columns),df],ignore_index=True)
-                    line =  file.readline().strip("\n \t")
-
-            line =  file.readline().strip("\n \t")
-    df["Step"] = pd.to_numeric(df["Step"])
-    df.sort_values("Step",inplace=True)
-
-    return df
+    return final_data
 
