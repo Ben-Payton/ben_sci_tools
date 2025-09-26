@@ -25,4 +25,8 @@ from .benterpolation import multi_sinterpolate
 
 from .kinetics import first_order
 
+from .quick_calc_tools import md_calc_concentration
+from .quick_calc_tools import md_calc_num_solute
+from .quick_calc_tools import md_calc_num_solvent
+
 from . import colors
